@@ -60,6 +60,60 @@
             margin-top: -35px;
         }
 
+        #music-choice-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 10000;
+            align-items: flex-start;
+            justify-content: center;
+            padding: calc(env(safe-area-inset-top, 0px) + 110px) 20px 30px;
+            background: rgba(3, 38, 15, 0.48);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        #music-choice-modal.is-visible {
+            display: flex;
+        }
+
+        .music-choice-card {
+            width: min(100%, 330px);
+            padding: 26px 22px 22px;
+            color: #fff;
+            text-align: center;
+            background: linear-gradient(145deg, #8a491f, #526d1c);
+            border: 2px solid #ebe99b;
+            border-radius: 24px;
+            box-shadow: 0 18px 45px rgba(0, 0, 0, 0.32);
+        }
+
+        .music-choice-card p {
+            margin: 0 0 20px;
+            font: 600 20px/1.35 "Roboto", sans-serif;
+        }
+
+        .music-choice-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .music-choice-actions button {
+            min-width: 115px;
+            padding: 11px 15px;
+            border: 1px solid rgba(255, 255, 255, 0.72);
+            border-radius: 999px;
+            color: #24420f;
+            background: #f4efad;
+            font: 700 15px/1 "Roboto", sans-serif;
+            cursor: pointer;
+        }
+
+        body.music-choice-open {
+            overflow: hidden;
+        }
+
         @media (max-width: 480px) {
             #loader {
                 padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
@@ -77,6 +131,15 @@
             <img src="assets/jirafa.png" alt="Cargando..." style="width: 150px; margin: auto; margin-top: 45px;" />
         </div>
     </div>
+    <div id="music-choice-modal" role="dialog" aria-modal="true" aria-labelledby="music-choice-title">
+        <div class="music-choice-card">
+            <p id="music-choice-title">¿Quieres ver la invitación con música?</p>
+            <div class="music-choice-actions">
+                <button type="button" id="music-yes">Sí, con música</button>
+                <button type="button" id="music-no">No, gracias</button>
+            </div>
+        </div>
+    </div>
     <script>
         window.addEventListener('load', function () {
             // Mantén el loader visible durante un tiempo fijo
@@ -85,6 +148,8 @@
                 document.getElementById('loader').style.display = 'none';
                 // Muestra el contenido principal
                 document.getElementById('content').style.display = 'block';
+                document.getElementById('music-choice-modal').classList.add('is-visible');
+                document.body.classList.add('music-choice-open');
             }, 6000); // 6000 milisegundos = 6 segundos
         });
     </script>
@@ -381,8 +446,13 @@
             <p class="subtitle reveal-left">Mami: Katherine<br><br>Papi: Adrian</p>
         </section>
         <img src="./assets/animales.png" alt="Rosa decorativa" class="decorative-rose reveal" />
-        <section class="section">
+        <section class="section celebration-section">
             <h1 class="title reveal">Celebración</h1>
+            <div class="balloon-cluster balloon-cluster--celebration" aria-hidden="true">
+                <span class="balloon balloon--gold"></span>
+                <span class="balloon balloon--olive"></span>
+                <span class="balloon balloon--cream"></span>
+            </div>
             <div class="celebration-details">
                 <p class="text celebration-date reveal-left">
                     La celebración se llevará a cabo el<br />
@@ -421,7 +491,7 @@
             ¡LOS ESPERAMOS PARA CELEBRAR MI CUMPLEAÑOS!
         </div>
 
-        <div class="header">
+        <div class="header" hidden aria-hidden="true">
             <div class="text" style="text-align: center;">Confirma tu asistencia</div>
             <div class="svg-accept">
                 <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="200px" height="200px"
@@ -564,6 +634,9 @@
             </p>
             <!-- <img src="./assets/qr.jpeg" alt="Rosa decorativa" class="qr decorative-rose reveal" /> -->
         </section>
+    </div>
+    <div class="actions-wrapper">
+        <div class="totens action-group" id="confirmation-section">
         <div class="toten2">
             <svg class="anim-fiesta" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 130 130" width="130" height="130"
                 preserveAspectRatio="xMidYMid meet">
@@ -700,13 +773,13 @@
                     </g>
                 </g>
             </svg>
-            <p class="subtitle reveal-left">Confirmar<br>Asistencia</p>
+            <p class="subtitle reveal-left">Confirma tu<br>asistencia</p>
         </div>
         <div class="toten2a"><a target="_blank" class="b2"
-                href="https://api.whatsapp.com/send?phone=51983466060&amp;text=Hola,%20confirmo%20mi%20asistencia%20al%20primer%20a%C3%B1ito%20de%20Juan%20David%20el%20s%C3%A1bado%2012%20de%20setiembre.%20Mi%20nombre%20y%20apellido%20es:%20">Confirmar</a>
+                href="https://api.whatsapp.com/send?phone=51983466060&amp;text=Hola,%20confirmo%20mi%20asistencia%20al%20primer%20a%C3%B1ito%20de%20Juan%20David%20el%20s%C3%A1bado%2012%20de%20setiembre.%20Mi%20nombre%20y%20apellido%20es:%20">Confirmar por WhatsApp</a>
         </div>
     </div>
-    <div class="totens">
+    <div class="totens action-group" id="location-section">
         <div class="toten3"><svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="80px" height="80px"
                 viewBox="0 0 1280.000000 1280.000000" preserveAspectRatio="xMidYMid meet">
                 <metadata>
@@ -731,6 +804,12 @@
         </div>
         <img src="./assets/rana.png" alt="Rosa decorativa" id="rana" class="decorative-rose reveal"
             style="margin-top: 25px;" />
+    </div>
+        <div class="balloon-cluster balloon-cluster--actions" aria-hidden="true">
+            <span class="balloon balloon--gold"></span>
+            <span class="balloon balloon--rust"></span>
+            <span class="balloon balloon--cream"></span>
+        </div>
     </div>
     <div id="ron"> Desarrollado con <span class="heartfooter">♡</div>
     <footer>
@@ -895,13 +974,13 @@
         height: 22px;
     }
 
-    /* Invertimos la visualización inicial */
+    /* Estado inicial en pausa hasta que el invitado elija. */
     #play-btn {
-        display: none;
+        display: flex;
     }
 
     #pause-btn {
-        display: flex;
+        display: none;
     }
 
     #progress-container {
@@ -955,48 +1034,52 @@
 <script>
     // Crear el elemento de audio
     const audioPlayer = new Audio('./assets/music.mp3');
-    // Configurar para autoplay
-    audioPlayer.autoplay = true;
-    let isPlaying = true;
+    audioPlayer.preload = 'metadata';
+    let isPlaying = false;
+    let progressInterval = null;
 
-    // Función para iniciar la reproducción automáticamente
-    function initPlayer() {
-        // Intentar reproducir automáticamente
+    function setPlayerButtons(playing) {
+        document.getElementById('play-btn').style.display = playing ? 'none' : 'flex';
+        document.getElementById('pause-btn').style.display = playing ? 'flex' : 'none';
+    }
+
+    function startMusic() {
         audioPlayer.play().then(() => {
-            // Si se reproduce con éxito
             isPlaying = true;
-            document.getElementById('play-btn').style.display = 'none';
-            document.getElementById('pause-btn').style.display = 'flex';
+            setPlayerButtons(true);
             updateProgress();
         }).catch(error => {
-            // Si falla el autoplay (políticas de navegador)
-            console.log("Autoplay prevented:", error);
+            console.log("No se pudo iniciar la música:", error);
             isPlaying = false;
-            document.getElementById('play-btn').style.display = 'flex';
-            document.getElementById('pause-btn').style.display = 'none';
+            setPlayerButtons(false);
         });
     }
 
-    // Iniciar cuando la página se carga
-    window.addEventListener('load', initPlayer);
+    function closeMusicChoice(playMusic) {
+        document.getElementById('music-choice-modal').classList.remove('is-visible');
+        document.body.classList.remove('music-choice-open');
+
+        if (playMusic) {
+            startMusic();
+        } else {
+            audioPlayer.pause();
+            isPlaying = false;
+            setPlayerButtons(false);
+        }
+    }
+
+    document.getElementById('music-yes').addEventListener('click', () => closeMusicChoice(true));
+    document.getElementById('music-no').addEventListener('click', () => closeMusicChoice(false));
 
     document.getElementById('play-btn').addEventListener('click', function () {
-        // Reproducir la canción
-        audioPlayer.play();
-        isPlaying = true;
-        document.getElementById('play-btn').style.display = 'none';
-        document.getElementById('pause-btn').style.display = 'flex';
-
-        // Iniciar actualización de progreso
-        updateProgress();
+        startMusic();
     });
 
     document.getElementById('pause-btn').addEventListener('click', function () {
         // Pausar la canción
         audioPlayer.pause();
         isPlaying = false;
-        document.getElementById('pause-btn').style.display = 'none';
-        document.getElementById('play-btn').style.display = 'flex';
+        setPlayerButtons(false);
     });
 
     // Actualizar la barra de progreso y el tiempo
@@ -1005,8 +1088,8 @@
             const progressBar = document.getElementById('progress-current');
             const timeDisplay = document.getElementById('time-display');
 
-            // Actualizar cada 100ms
-            const progressInterval = setInterval(function () {
+            clearInterval(progressInterval);
+            progressInterval = setInterval(function () {
                 if (!isPlaying) {
                     clearInterval(progressInterval);
                     return;

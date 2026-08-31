@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi primer añito Juan David — Propuesta</title>
+    <meta name="description" content="Invitación al primer añito de Juan David" />
+    <meta property="og:title" content="Mi primer añito Juan David" />
+    <meta property="og:description" content="Acompáñanos a celebrar el primer añito de Juan David." />
+    <meta property="og:image" content="./assets/1.jpg" />
+    <link rel="icon" href="./assets/favicon.ico" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=DM+Sans:wght@400;500;600;700&family=Herr+Von+Muellerhoff&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+</head>
+
+<body>
+    <div class="loader" id="loader" aria-live="polite">
+        <p class="loader-kicker">Mi primer añito</p>
+        <h1>Juan David</h1>
+        <div class="loader-animals" aria-hidden="true">
+            <img src="./assets/leon.png" alt="" />
+            <img class="loader-main" src="./assets/1.png" alt="" />
+            <img src="./assets/jirafa.png" alt="" />
+        </div>
+        <p class="loader-note">Una aventura está por comenzar…</p>
+    </div>
+
+    <div class="music-choice" id="music-choice" role="dialog" aria-modal="true" aria-labelledby="music-question">
+        <div class="music-choice-card">
+            <span class="music-note" aria-hidden="true">♪</span>
+            <h2 id="music-question">¿Quieres ver la invitación con música?</h2>
+            <div class="music-choice-buttons">
+                <button type="button" id="music-yes">Sí, con música</button>
+                <button type="button" id="music-no">No, gracias</button>
+            </div>
+        </div>
+    </div>
+
+    <main class="site-shell" id="invitation" hidden>
+        <section class="hero section-pad">
+            <div class="balloons balloons-hero" aria-hidden="true">
+                <span class="balloon balloon-gold"></span>
+                <span class="balloon balloon-olive"></span>
+                <span class="balloon balloon-rust"></span>
+            </div>
+            <p class="eyebrow">Estás invitado a celebrar</p>
+            <h1 class="script-title">Juan David</h1>
+            <p class="hero-age">¡Mi primer añito!</p>
+            <div class="hero-animals" aria-hidden="true">
+                <img src="./assets/leon.png" alt="" />
+                <img class="hero-main" src="./assets/1.png" alt="" />
+                <img src="./assets/jirafa.png" alt="" />
+            </div>
+            <p class="hero-copy">Acompáñanos a vivir una tarde llena de alegría, cariño y aventura.</p>
+            <p class="hero-date">Sábado 12 de setiembre de 2026</p>
+            <div class="countdown" id="countdown" aria-label="Cuenta regresiva">
+                <div><strong id="days">00</strong><span>Días</span></div>
+                <div><strong id="hours">00</strong><span>Horas</span></div>
+                <div><strong id="minutes">00</strong><span>Min</span></div>
+                <div><strong id="seconds">00</strong><span>Seg</span></div>
+            </div>
+        </section>
+
+        <section class="paper-card story section-pad reveal">
+            <p class="section-kicker">Un año de amor</p>
+            <h2>Mi primer añito</h2>
+            <p>“Hace un año nuestras vidas cambiaron para siempre. Llegaste pequeñito, pero llenaste nuestros corazones de un amor inmenso. Hoy celebramos tu primer año de vida y queremos que seas parte de este momento tan especial.”</p>
+        </section>
+
+        <section class="gallery section-pad" aria-label="Fotos de Juan David">
+            <figure class="photo-card reveal"><img src="./assets/1.jpg" alt="Juan David sonriendo en la cama" /></figure>
+            <figure class="photo-card reveal"><img src="./assets/2.jpg" alt="Juan David sonriendo con una pelota" /></figure>
+            <figure class="photo-card reveal"><img src="./assets/3.jpg" alt="Juan David celebrando su primer corte de cabello" /></figure>
+            <figure class="photo-card reveal"><img src="./assets/4.jpg" alt="Juan David en el estadio" /></figure>
+        </section>
+
+        <section class="paper-card parents section-pad reveal">
+            <p class="section-kicker">Con mucho amor</p>
+            <h2>Mis papis</h2>
+            <div class="parent-grid">
+                <p><span>Mami</span><strong>Katherine</strong></p>
+                <p><span>Papi</span><strong>Adrian</strong></p>
+            </div>
+        </section>
+
+        <section class="paper-card celebration section-pad reveal">
+            <div class="balloons balloons-card" aria-hidden="true">
+                <span class="balloon balloon-gold"></span>
+                <span class="balloon balloon-cream"></span>
+                <span class="balloon balloon-olive"></span>
+            </div>
+            <p class="section-kicker">Reserva la fecha</p>
+            <h2>Celebración</h2>
+            <div class="celebration-details">
+                <p>La celebración se llevará a cabo el<br /><strong>sábado 12 de setiembre de 2026.</strong></p>
+                <p><span>Hora</span><strong>3:00 p. m.</strong></p>
+                <p><span>Dirección</span><strong>Loma del Pilar 322,<br />Santiago de Surco</strong></p>
+            </div>
+        </section>
+
+        <section class="pass-card section-pad" id="pass-card" hidden>
+            <p class="section-kicker" id="pass-title">Pase</p>
+            <h2 id="guest-name"></h2>
+            <p>Tenemos reservado</p>
+            <strong class="pass-number" id="pass-number"></strong>
+            <p id="pass-label">Lugar</p>
+        </section>
+
+        <section class="paper-card gifts section-pad reveal">
+            <div class="gift-icon" aria-hidden="true">🎁</div>
+            <h2>Regalos</h2>
+            <p>Aprecio cada gesto de cariño en este día tan especial. Si desean hacerme un regalo, pueden elegir el detalle que prefieran. Todo será recibido con mucha alegría y gratitud.</p>
+        </section>
+
+        <section class="actions section-pad reveal">
+            <div class="balloons balloons-actions" aria-hidden="true">
+                <span class="balloon balloon-rust"></span>
+                <span class="balloon balloon-gold"></span>
+                <span class="balloon balloon-cream"></span>
+            </div>
+            <article class="action-item">
+                <div class="action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 21s7-6.1 7-12a7 7 0 1 0-14 0c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg>
+                </div>
+                <p class="section-kicker">Cómo llegar</p>
+                <h2>Ubicación</h2>
+                <a class="action-button" href="https://www.google.com/maps/search/?api=1&amp;query=Loma%20del%20Pilar%20322%2C%20Santiago%20de%20Surco%2C%20Per%C3%BA" target="_blank" rel="noopener">¿Cómo llegar?</a>
+            </article>
+            <div class="leaf-divider" aria-hidden="true"><span></span></div>
+            <article class="action-item">
+                <div class="action-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v9a2.5 2.5 0 0 1-2.5 2.5H9l-5 4v-15.5Z"/><path d="m8 9 2.3 2.3L16 6.5"/></svg>
+                </div>
+                <p class="section-kicker">Nos encantará verte</p>
+                <h2>Confirma tu asistencia</h2>
+                <a class="action-button" href="https://api.whatsapp.com/send?phone=51983466060&amp;text=Hola,%20confirmo%20mi%20asistencia%20al%20primer%20a%C3%B1ito%20de%20Juan%20David%20el%20s%C3%A1bado%2012%20de%20setiembre.%20Mi%20nombre%20y%20apellido%20es:%20" target="_blank" rel="noopener">Confirmar por WhatsApp</a>
+            </article>
+        </section>
+
+        <footer>
+            <p>Desarrollado con ♡ por Giftclick</p>
+        </footer>
+    </main>
+
+    <div class="music-player" id="music-player" aria-label="Reproductor de música">
+        <div>
+            <span class="player-note" aria-hidden="true">♪</span>
+            <strong>Mi Canción</strong>
+        </div>
+        <button type="button" id="music-toggle" aria-label="Reproducir música">▶</button>
+        <div class="progress"><span id="progress-current"></span></div>
+        <span id="time-display">00:00</span>
+    </div>
+</body>
+
+</html>
