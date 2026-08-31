@@ -31,24 +31,41 @@
         #loader {
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            height: 100dvh;
+            padding-top: calc(env(safe-area-inset-top, 0px) + 64px);
+            overflow: hidden;
             background-color: #ebf1c8;
             /* Cambia el color si es necesario */
             z-index: 9999;
         }
 
+        .loader-heading {
+            flex: 0 0 auto;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 2;
+        }
+
         .loader1 {
-            margin-top: -120px;
+            width: 100%;
+            margin-top: -35px;
+        }
+
+        @media (max-width: 480px) {
+            #loader {
+                padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
+            }
         }
     </style>
     <div id="loader" style="text-align: center;">
-        <div style="margin-bottom: 75px;">
+        <div class="loader-heading">
             <h1 class="subtitle" style="color: rgb(30, 95, 12); margin-bottom: -18px;">Mi primer añito</h1>
             <h1 class="title" style="color: rgb(30, 95, 12);">Juan David</h1>
         </div>
@@ -66,7 +83,7 @@
                 document.getElementById('loader').style.display = 'none';
                 // Muestra el contenido principal
                 document.getElementById('content').style.display = 'block';
-            }, 3000); // 3000 milisegundos = 3 segundos
+            }, 6000); // 6000 milisegundos = 6 segundos
         });
     </script>
     <script>
