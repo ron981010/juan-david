@@ -470,14 +470,14 @@
             </div>
             <div class="divider1"></div>
         </div>
-        <div class="personal" style="margin-top: 50px;">
+        <div class="personal" id="personal" style="display: none; margin-top: 50px;">
             <div class="section-title title" id="passes-title" style="margin-bottom: 25px;">Pase</div>
             <h1 class="footer subtitle" id="name"
                 style="text-align: center; font-size:30px; font-weight: bold; margin-block: 5px;"></h1>
             <div class="footer subtitle reveal-left" style="margin-bottom: 5px;">
                 Tenemos Reservado <br>
             </div>
-            <p id="passnumbers" class="subtitle reveal-left">1</p>
+            <p id="passnumbers" class="subtitle reveal-left"></p>
             <div class="footer text" id="places-text" style="margin-top:10px">
                 Lugar
             </div>
@@ -486,6 +486,8 @@
             document.addEventListener('DOMContentLoaded', function () {
                 // Obtener información de la URL
                 const urlParams = window.location.search;
+
+                const personal = document.getElementById('personal');
 
                 if (urlParams) {
                     // Quitar el '?' del inicio
@@ -502,18 +504,22 @@
                         const firstName = parts[0];
                         const lastName = parts[1];
                         const numPasses = parts[2];
+                        const passCount = Number(numPasses);
 
-                        // Actualizar el contenido de la página
-                        document.getElementById('name').textContent = `${firstName} ${lastName}`;
-                        document.getElementById('passnumbers').textContent = numPasses;
+                        // Mostrar el pase únicamente para enlaces personalizados válidos.
+                        if (firstName && lastName && Number.isInteger(passCount) && passCount > 0) {
+                            personal.style.display = 'flex';
+                            document.getElementById('name').textContent = `${firstName} ${lastName}`;
+                            document.getElementById('passnumbers').textContent = passCount;
 
-                        // Cambiar singular/plural según el número
-                        if (numPasses === "1") {
-                            document.getElementById('passes-title').textContent = "Pase";
-                            document.getElementById('places-text').textContent = "Lugar";
-                        } else {
-                            document.getElementById('passes-title').textContent = "Pases";
-                            document.getElementById('places-text').textContent = "Lugares";
+                            // Cambiar singular/plural según el número.
+                            if (passCount === 1) {
+                                document.getElementById('passes-title').textContent = "Pase";
+                                document.getElementById('places-text').textContent = "Lugar";
+                            } else {
+                                document.getElementById('passes-title').textContent = "Pases";
+                                document.getElementById('places-text').textContent = "Lugares";
+                            }
                         }
                     }
                 }
