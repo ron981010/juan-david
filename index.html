@@ -25,6 +25,8 @@
         /* Ocultar el contenido principal al cargar */
         #content {
             display: none;
+            /* Deja el encabezado libre de barras del navegador al abrir la invitación. */
+            padding-top: clamp(64px, calc(env(safe-area-inset-top, 0px) + 72px), 110px);
         }
 
         /* Estilo del contenedor del loader */
