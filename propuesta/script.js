@@ -86,7 +86,7 @@ window.addEventListener("load", () => {
         musicPlayer.classList.add("is-visible");
         musicChoice.classList.add("is-visible");
         document.body.classList.add("choice-open");
-    }, 6000);
+    }, 3000);
 });
 
 document.getElementById("music-yes").addEventListener("click", () => closeMusicChoice(true));
