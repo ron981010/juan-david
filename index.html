@@ -334,7 +334,7 @@
         </div>
 
         <div class="container">
-            <img src="assets/1.jpg" alt="Juan David sonriendo después de su primer corte de cabello" class="caminoimg image-reveal" />
+            <img src="assets/1.jpg" alt="Juan David sonriendo en la cama" class="caminoimg image-reveal" />
         </div>
         <div class="container">
             <img src="assets/2.jpg" alt="Juan David sonriendo" class="caminoimg reveal-left" />
@@ -350,7 +350,7 @@
             .container {
                 position: relative;
                 width: 80%;
-                height: 450px;
+                height: auto;
                 margin-block: 25px;
                 overflow: hidden;
                 border-radius: 25px;
@@ -360,12 +360,18 @@
             }
 
             .caminoimg {
-                position: absolute;
-                top: 0;
-                left: 0;
+                position: relative;
+                display: block;
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
+                height: auto;
+                object-fit: contain;
+            }
+
+            /* La imagen conserva toda su proporción y el bebé no se recorta al revelarse. */
+            .container .caminoimg.image-reveal.active,
+            .container .caminoimg.reveal-left.active,
+            .container .caminoimg.reveal-right.active {
+                transform: none;
             }
         </style>
 
