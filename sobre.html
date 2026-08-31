@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luciérnagas Realistas</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000;
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    .custom-firefly {
+      position: absolute;
+      background-image: url('assets/weyv.webp');
+      background-size: contain;
+      background-repeat: no-repeat;
+      pointer-events: none;
+      opacity: 0.9;
+      will-change: transform;
+      transition: transform 0.2s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <script>
+    const FF_COUNT = 6;
+    const ffList = [];
+    const FF_MARGIN = 20;
+    const FF_SPEED = 0.2;
+
+    function spawnCustomFirefly() {
+      const node = document.createElement('div');
+      node.className = 'custom-firefly';
+
+      const dimension = Math.random() * 50 + 80;
+      node.style.width = `${dimension}px`;
+      node.style.height = `${dimension}px`;
+
+      const posX = Math.random() * (window.innerWidth - dimension);
+      const posY = Math.random() * (window.innerHeight - dimension);
+      const velX = (Math.random() - 0.5) * FF_SPEED;
+      const velY = (Math.random() - 0.5) * FF_SPEED;
+
+      document.body.appendChild(node);
+      ffList.push({ node, posX, posY, velX, velY, dimension, flip: velX > 0 });
+    }
+
+    function animateCustomFireflies() {
+      for (let ff of ffList) {
+        ff.posX += ff.velX;
+        ff.posY += ff.velY;
+
+        if (ff.posY <= 0 || ff.posY >= window.innerHeight - ff.dimension) {
+          ff.velY *= -1;
+        }
+
+        if (ff.posX <= -FF_MARGIN) {
+          ff.velX = Math.abs(ff.velX);
+          ff.flip = true;
+        } else if (ff.posX >= window.innerWidth - ff.dimension + FF_MARGIN) {
+          ff.velX = -Math.abs(ff.velX);
+          ff.flip = false;
+        }
+
+        const move = `translate(${ff.posX}px, ${ff.posY}px) scaleX(${ff.flip ? 1 : -1})`;
+        ff.node.style.transform = move;
+      }
+
+      requestAnimationFrame(animateCustomFireflies);
+    }
+
+    function pushImpulse(strength = 0.5) {
+      ffList.forEach(ff => {
+        ff.velX += (Math.random() - 0.5) * strength;
+        ff.velY += (Math.random() - 0.5) * strength;
+      });
+    }
+
+    for (let i = 0; i < FF_COUNT; i++) {
+      spawnCustomFirefly();
+    }
+
+    animateCustomFireflies();
+
+    window.addEventListener('scroll', () => pushImpulse(0.8));
+    window.addEventListener('touchstart', () => pushImpulse(1));
+  </script>
+
+</body>
+</html>

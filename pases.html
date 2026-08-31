@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Invitaciones</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .generator-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            display: block;
+            margin: 20px auto 0;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .result p {
+            margin-bottom: 10px;
+            word-break: break-all;
+        }
+
+        .copy-button {
+            background-color: #2196F3;
+            margin-top: 10px;
+        }
+
+        .copy-button:hover {
+            background-color: #0b7dda;
+        }
+
+        .preview {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f8ff;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .preview-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .preview-content {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="generator-container">
+        <h1>Generador de Invitaciones</h1>
+        
+        <div class="form-group">
+            <label for="firstName">Nombre:</label>
+            <input type="text" id="firstName" placeholder="Ingrese el nombre">
+        </div>
+        
+        <div class="form-group">
+            <label for="lastName">Apellido:</label>
+            <input type="text" id="lastName" placeholder="Ingrese el apellido">
+        </div>
+        
+        <div class="form-group">
+            <label for="numPasses">Número de pases:</label>
+            <input type="number" id="numPasses" placeholder="Ingrese el número de pases" min="1" value="1">
+        </div>
+        
+        <button id="generateButton">Generar Enlace</button>
+        
+        <div class="preview" id="previewContainer">
+            <div class="preview-title">Vista previa:</div>
+            <div class="preview-content">
+                <div id="preview-passes-title">Pase</div>
+                <h3 id="preview-name"></h3>
+                <div>Tenemos Reservado</div>
+                <h2 id="preview-number">1</h2>
+                <div id="preview-places-text">Lugar</div>
+            </div>
+        </div>
+        
+        <div class="result" id="resultContainer">
+            <p><strong>Enlace personalizado:</strong></p>
+            <p id="generatedLink"></p>
+            <button class="copy-button" id="copyButton">Copiar Enlace</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const generateButton = document.getElementById('generateButton');
+            const copyButton = document.getElementById('copyButton');
+            const resultContainer = document.getElementById('resultContainer');
+            const previewContainer = document.getElementById('previewContainer');
+            const generatedLinkElement = document.getElementById('generatedLink');
+            const numPassesInput = document.getElementById('numPasses');
+            
+            // Actualizar la vista previa cuando se cambia el número de pases
+            numPassesInput.addEventListener('input', updatePreview);
+            document.getElementById('firstName').addEventListener('input', updatePreview);
+            document.getElementById('lastName').addEventListener('input', updatePreview);
+            
+            function updatePreview() {
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const numPasses = document.getElementById('numPasses').value.trim();
+                
+                if (firstName || lastName || numPasses) {
+                    document.getElementById('preview-name').textContent = `${firstName} ${lastName}`;
+                    document.getElementById('preview-number').textContent = numPasses;
+                    
+                    // Actualizar singular/plural
+                    if (numPasses === "1") {
+                        document.getElementById('preview-passes-title').textContent = "Pase";
+                        document.getElementById('preview-places-text').textContent = "Lugar";
+                    } else {
+                        document.getElementById('preview-passes-title').textContent = "Pases";
+                        document.getElementById('preview-places-text').textContent = "Lugares";
+                    }
+                    
+                    previewContainer.style.display = 'block';
+                } else {
+                    previewContainer.style.display = 'none';
+                }
+            }
+            
+            generateButton.addEventListener('click', function() {
+                const firstName = document.getElementById('firstName').value.trim();
+                const lastName = document.getElementById('lastName').value.trim();
+                const numPasses = document.getElementById('numPasses').value.trim();
+                
+                if (!firstName || !lastName || !numPasses) {
+                    alert('Por favor, complete todos los campos');
+                    return;
+                }
+                
+                // Crear los parámetros para la URL
+                const params = `${encodeURIComponent(firstName)}-${encodeURIComponent(lastName)}-${encodeURIComponent(numPasses)}-`;
+                
+                // Obtener la URL base de la página actual
+                const baseUrl = window.location.href.split('/').slice(0, -1).join('/');
+                
+                // Crear la URL completa
+                const fullUrl = `${baseUrl}/index.html?${params}`;
+                
+                // Mostrar el resultado
+                generatedLinkElement.textContent = fullUrl;
+                resultContainer.style.display = 'block';
+                
+                // Actualizar la vista previa
+                updatePreview();
+            });
+            
+            copyButton.addEventListener('click', function() {
+                const linkText = generatedLinkElement.textContent;
+                
+                // Crear un elemento de texto temporal para copiar
+                const tempInput = document.createElement('input');
+                tempInput.value = linkText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand('copy');
+                document.body.removeChild(tempInput);
+                
+                // Cambiar temporalmente el texto del botón para dar feedback
+                const originalText = copyButton.textContent;
+                copyButton.textContent = '¡Enlace copiado!';
+                setTimeout(function() {
+                    copyButton.textContent = originalText;
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
