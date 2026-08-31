@@ -109,7 +109,7 @@ audio.addEventListener("timeupdate", () => {
 });
 
 audio.addEventListener("loadedmetadata", () => {
-    timeDisplay.textContent = formatTime(audio.duration);
+    timeDisplay.textContent = formatTime(audio.currentTime);
 });
 
 audio.addEventListener("ended", () => {
