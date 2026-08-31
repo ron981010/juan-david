@@ -377,11 +377,39 @@
         <img src="./assets/animales.png" alt="Rosa decorativa" class="decorative-rose reveal" />
         <section class="section">
             <h1 class="title reveal">Celebración</h1>
-            <p class="subtitle reveal-left">03:00 PM</p>
-            <p class="text">La celebración se llevará a cabo el sábado 12 de setiembre de 2026 a las 3:00 PM en
-                Loma del Pilar 322, Santiago de Surco.
-            </p>
+            <div class="celebration-details">
+                <p class="text celebration-date reveal-left">
+                    La celebración se llevará a cabo el<br />
+                    sábado 12 de setiembre de 2026.
+                </p>
+                <p class="text celebration-time reveal-left">Hora: 3:00 p. m.</p>
+                <p class="text celebration-address reveal-left">
+                    Dirección: Loma del Pilar 322,<br />
+                    Santiago de Surco
+                </p>
+            </div>
         </section>
+        <style>
+            /* Mantiene el orden y el aire entre los datos de celebración. */
+            .celebration-details {
+                text-align: center;
+            }
+
+            .celebration-details .text {
+                max-width: 560px;
+                margin-inline: auto;
+                padding-inline: 20px;
+            }
+
+            .celebration-date {
+                margin-top: 34px;
+            }
+
+            .celebration-time,
+            .celebration-address {
+                margin-top: 52px;
+            }
+        </style>
         <img src="./assets/lu.png" alt="Rosa decorativa" class="decorative-rose reveal" />
         <div class="subtitle reveal-left" style="text-align: center;">
             ¡LOS ESPERAMOS PARA CELEBRAR MI CUMPLEAÑOS!
